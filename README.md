@@ -38,3 +38,17 @@ Phân quyền:
  * sudo chmod -R 754 example.txt
  
 ![alt](./images/Selection_007.png)
+
+## Upload và Download file thông qua ssh
+
+Upload 1 file
+
+* scp /home/khanh/text/download-test.txt vudang@192.168.0.7:/Users/vudang/Desktop/ssh-text
+
+![alt](./images/Selection_008.png)
+
+Download 1 file
+
+* scp vudang@192.168.0.7:/Users/vudang/Desktop/ssh-text/download-test.txt text.txt
+
+![alt](./images/Selection_009.png)
