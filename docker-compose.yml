@@ -11,7 +11,7 @@ services:
     stdin_open: true
     tty: true
     volumes: 
-      - ./server:/usr/share/nginx/html/
+      - ./PHP:/usr/share/nginx/html/
       
     
   nginx:
@@ -22,7 +22,7 @@ services:
     stdin_open: true
     tty: true
     volumes:
-    - ./server:/usr/share/nginx/html/
+    - ./PHP:/usr/share/nginx/html/
     ports:
     - "3030:80"
 
