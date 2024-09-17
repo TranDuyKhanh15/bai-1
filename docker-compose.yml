@@ -1,0 +1,64 @@
+version: '3.4'
+
+services:
+  php:
+    build: 
+      context: .
+      dockerfile: php.Dockerfile
+    ports: 
+      - 3000:3000
+
+    stdin_open: true
+    tty: true
+    volumes: 
+      - ./PHP:/usr/share/nginx/html/
+      
+    
+  nginx:
+    build: 
+      context: .
+      dockerfile: nginx.Dockerfile
+
+    stdin_open: true
+    tty: true
+    volumes:
+    - ./PHP:/usr/share/nginx/html/
+    ports:
+    - "3030:80"
+
+  db:
+    build: 
+      context: .
+      dockerfile: sql.Dockerfile
+    tty: true
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    ports:
+      - "3307:3306"
+
+    volumes:
+      - ./init:/docker-entrypoint-initdb.d
+
+    environment: 
+      MYSQL_ROOT_PASSWORD: 12345
+      MYSQL_DATABASE: docker_db 
+      MYSQL_USER: root
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+      
+  mailhog:
+    image: mailhog/mailhog
+    container_name: 'mailhog'
+    build: 
+      context: .
+      dockerfile: mailhog.Dockerfile
+
+    tty: true
+    ports:
+      - "1025:1025"
+      - "8025:8025"
